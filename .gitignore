@@ -1,0 +1,27 @@
+
+---
+
+## **.gitignore**
+
+```gitignore
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# Jupyter
+.ipynb_checkpoints/
+
+# Env files
+.env
+
+# Database / output files
+*.db
+*.sqlite
+*.csv
+*.parquet
+
+# IDE specific
+.vscode/
+.idea/
