@@ -96,3 +96,22 @@ FROM ad_impressions ai
 JOIN ads as a ON ai.ad_id = a.ad_id
 GROUP BY ai.device, a.category
 ORDER BY total_click_rate DESC;
+
+-- Top 3 ads per user
+WITH user_ad_stats AS (
+    SELECT 
+        ai.user_id,
+        ai.ad_id,
+        a.ad_text,
+        SUM(ai.clicked) AS total_clicks,
+        COUNT(ai.impression_id) AS total_ads_seen,
+        ROUND(SUM(ai.clicked)/COUNT(ai.impression_id)*100,3) AS click_rate,
+        ROW_NUMBER() OVER(PARTITION BY ai.user_id ORDER BY SUM(ai.clicked) DESC) AS rn
+    FROM ad_impressions ai
+    JOIN ads a ON ai.ad_id = a.ad_id
+    GROUP BY ai.user_id, ai.ad_id, a.ad_text
+)
+SELECT *
+FROM user_ad_stats
+WHERE rn <= 3
+ORDER BY user_id, click_rate DESC
