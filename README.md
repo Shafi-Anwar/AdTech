@@ -17,8 +17,3 @@ The project is designed for **data engineering, SQL analytics, and predictive mo
   - Device and category performance
 - Python integration for SQL queries and analytics
 
----
-
-## Project Structure
-# Safety-AI-System
-# Safety-AI-System
